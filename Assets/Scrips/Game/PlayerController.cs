@@ -24,7 +24,7 @@ public class PlayerController : MonoBehaviour
     {
         _direction = Input.GetAxisRaw("Horizontal");
         _rigidBody.velocity = new Vector3(_direction * _sprintSpeed, _rigidBody.velocity.y);
-        ;
+        
     }
 
     private void OnPlayerJumped()
@@ -40,9 +40,21 @@ public class PlayerController : MonoBehaviour
     private void OnPlayerMoved()
     {
         _direction = Input.GetAxisRaw("Horizontal");
+        Turn(_direction);
         _rigidBody.velocity = new Vector3(_direction * _walkSpeed, _rigidBody.velocity.y, 0);
     }
 
+    private void Turn(float direction)
+    {
+        if (direction > 0)
+        {
+            transform.rotation = Quaternion.Euler(0, -90, 0);
+        }
+        else if (direction < 0)
+        {
+            transform.rotation = Quaternion.Euler(0, 90, 0);
+        }
+    }
     private void OnPlayerInteracted()
     {
         throw new NotImplementedException();
