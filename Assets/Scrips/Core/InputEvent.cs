@@ -7,4 +7,5 @@ public static class InputEvent
     public static Action OnPlayerAttack;
     public static Action OnPlayerInteract;
     public static Action OnPlayerSprint;
+    public static Action OnPlayerStop;
 }
