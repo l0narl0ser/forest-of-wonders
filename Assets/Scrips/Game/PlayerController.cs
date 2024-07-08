@@ -5,6 +5,9 @@ using UnityEngine;
 public class PlayerController : MonoBehaviour
 {
     [SerializeField] private Rigidbody _rigidBody;
+
+    public Rigidbody rigidBody => _rigidBody;
+
     [SerializeField] private Animator _animator;
     [SerializeField] private Interactor _interactor;
 
