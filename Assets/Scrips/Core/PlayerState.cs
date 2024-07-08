@@ -36,10 +36,11 @@ public class StandingState : PlayerState
 }
 public class WalkingState : PlayerState
 {
-    public WalkingState(PlayerController player, Animator animator) : base(player, animator) { }
+    public  WalkingState(PlayerController player, Animator animator) : base(player, animator) { }
 
     public override void EnterState()
     {
+        if (!_player.IsGrounded()) return;
         _player.Move(_player.walkSpeed);
         _animator.SetBool("isWalking", true);
     }
@@ -61,6 +62,7 @@ public class RunningState : PlayerState
 
     public override void EnterState()
     {
+        if (!_player.IsGrounded()) return;
         _player.Move(_player.sprintSpeed);
         _animator.SetBool("isRunning", true);
     }
@@ -82,12 +84,15 @@ public class JumpingState : PlayerState
 
     public override void EnterState()
     {
-        _player.Jump();
         _animator.SetBool("isJumping",true);
+        Debug.LogWarning($"{_animator.GetBool("isJumping")}");
+        _player.Jump();
     }
 
     public override void UpdateState()
     {
+        if (_player.IsGrounded()) return;
+        _animator.SetBool("isJumping",true);
     }
 
     public override void ExitState()
@@ -102,15 +107,17 @@ public class AttackingState : PlayerState
 
     public override void EnterState()
     {
-        _animator.SetTrigger("Attack");
+        _animator.SetBool("isAttacking", true);
     }
 
     public override void UpdateState()
     {
+        _animator.SetBool("isAttacking", true);
     }
 
     public override void ExitState()
     {
+        _animator.SetBool("isAttacking",false);
     }
 }
 

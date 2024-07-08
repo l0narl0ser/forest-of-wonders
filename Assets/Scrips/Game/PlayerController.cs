@@ -27,7 +27,10 @@ public class PlayerController : MonoBehaviour
         InputEvent.OnPlayerSprint += OnPlayerSprinted;
         InputEvent.OnPlayerStop += OnPlayerStopped;
     }
-
+    private void Update()
+    {
+        _stateMachine.Update();
+    }
     private void OnPlayerStopped()
     {
         if (!CanChangeState())
@@ -39,12 +42,8 @@ public class PlayerController : MonoBehaviour
 
     private bool CanChangeState()
     {
-        if (_stateMachine.currentState.GetType() == typeof(StandingState))
-        {
-            return false;
-        }
-
-        return true;
+        var currentState = _stateMachine.currentState.GetType();
+        return currentState != typeof(StandingState) && currentState != typeof(JumpingState);
     }
 
     private void OnPlayerMoved()
@@ -68,7 +67,7 @@ public class PlayerController : MonoBehaviour
 
     private void OnPlayerAttacked()
     {
-        throw new NotImplementedException();
+        _stateMachine.ChangeState(new AttackingState(this, _animator));
     }
     
 
@@ -77,7 +76,7 @@ public class PlayerController : MonoBehaviour
         if (IsGrounded()) _rigidBody.velocity = new Vector3(_rigidBody.velocity.x, _jumpHeight);
     }
 
-    private bool IsGrounded()
+    public bool IsGrounded()
     {
         return Physics.Raycast(transform.position, Vector3.down, .1f);
     }
