@@ -6,6 +6,7 @@ public class PlayerController : MonoBehaviour
 {
     [SerializeField] private Rigidbody _rigidBody;
     [SerializeField] private Animator _animator;
+    [SerializeField] private Interactor _interactor;
 
     private float _direction = 0f;
     private float _sprintSpeed = 4f;
@@ -62,7 +63,7 @@ public class PlayerController : MonoBehaviour
 
     private void OnPlayerInteracted()
     {
-        throw new NotImplementedException();
+        _interactor.Interact();
     }
 
     private void OnPlayerAttacked()
@@ -100,11 +101,7 @@ public class PlayerController : MonoBehaviour
             transform.rotation = Quaternion.Euler(0, -90, 0);
         }
     }
-
-    public void ResetParam()
-    {
-        _rigidBody.velocity = Vector3.zero;
-    }
+    
 
     private void OnDestroy()
     {
