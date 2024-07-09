@@ -1,29 +1,24 @@
-﻿using System;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 public class PlayerController : MonoBehaviour
 {
     [SerializeField] private Rigidbody _rigidBody;
-
-    public Rigidbody rigidBody => _rigidBody;
-
     [SerializeField] private Animator _animator;
     [SerializeField] private Interactor _interactor;
 
     private float _direction = 0f;
     private float _sprintSpeed = 4f;
     private float _walkSpeed = 2f;
-    private float _jumpHeight = 7f;
+    private float _jumpHeight = 5f;
     private StateMachine _stateMachine;
     public float sprintSpeed => _sprintSpeed;
     public float walkSpeed => _walkSpeed;
-
+    public Rigidbody rigidBody => _rigidBody;
 
     private void Awake()
     {
         _stateMachine = new StateMachine();
-        _stateMachine.Initialize(new StandingState(this,_animator));
+        _stateMachine.Initialize(new StandingState(this, _animator));
         InputEvent.OnPlayerAttack += OnPlayerAttacked;
         InputEvent.OnPlayerInteract += OnPlayerInteracted;
         InputEvent.OnPlayerMove += OnPlayerMoved;
@@ -31,16 +26,19 @@ public class PlayerController : MonoBehaviour
         InputEvent.OnPlayerSprint += OnPlayerSprinted;
         InputEvent.OnPlayerStop += OnPlayerStopped;
     }
+
     private void Update()
     {
         _stateMachine.Update();
     }
+
     private void OnPlayerStopped()
     {
         if (!CanChangeState())
         {
             return;
         }
+
         _stateMachine.ChangeState(new StandingState(this, _animator));
     }
 
@@ -49,15 +47,18 @@ public class PlayerController : MonoBehaviour
         var currentState = _stateMachine.currentState.GetType();
         return currentState != typeof(StandingState) && currentState != typeof(JumpingState);
     }
+
     public bool CanAttack()
     {
         var currentState = _stateMachine.currentState.GetType();
         return currentState == typeof(AttackingState);
     }
+
     private void OnPlayerMoved()
     {
         _stateMachine.ChangeState(new WalkingState(this, _animator));
     }
+
     private void OnPlayerSprinted()
     {
         _stateMachine.ChangeState(new RunningState(this, _animator));
@@ -77,7 +78,7 @@ public class PlayerController : MonoBehaviour
     {
         _stateMachine.ChangeState(new AttackingState(this, _animator));
     }
-    
+
 
     public void Jump()
     {
@@ -108,7 +109,7 @@ public class PlayerController : MonoBehaviour
             transform.rotation = Quaternion.Euler(0, -90, 0);
         }
     }
-    
+
 
     private void OnDestroy()
     {

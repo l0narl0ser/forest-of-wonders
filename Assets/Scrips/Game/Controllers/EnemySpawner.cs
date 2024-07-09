@@ -1,7 +1,6 @@
-﻿using System;
-using UnityEngine;
+﻿using UnityEngine;
 
-public class EnemySpawner: MonoBehaviour
+public class EnemySpawner : MonoBehaviour
 {
     [SerializeField] private EnemyController _enemy;
 
@@ -14,7 +13,7 @@ public class EnemySpawner: MonoBehaviour
     {
         Instantiate(_enemy, spawnPosition.position, spawnPosition.rotation);
     }
-    
+
     private void OnDestroy()
     {
         EnemyEvent.OnEnemySpawn -= OnEnemySpawned;
