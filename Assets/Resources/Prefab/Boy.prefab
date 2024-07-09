@@ -93,19 +93,19 @@ PrefabInstance:
       objectReference: {fileID: 2100000, guid: 9ed3f9115f02e9840ae7ebb73c43ed96, type: 2}
     - target: {fileID: 4623962412769894852, guid: 40403e8dd1d97824e808cbff6cf325c8, type: 3}
       propertyPath: m_LocalRotation.w
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4623962412769894852, guid: 40403e8dd1d97824e808cbff6cf325c8, type: 3}
-      propertyPath: m_LocalRotation.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4623962412769894852, guid: 40403e8dd1d97824e808cbff6cf325c8, type: 3}
-      propertyPath: m_LocalRotation.y
       value: 0.7072302
       objectReference: {fileID: 0}
     - target: {fileID: 4623962412769894852, guid: 40403e8dd1d97824e808cbff6cf325c8, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: -0.7069834
+      objectReference: {fileID: 0}
+    - target: {fileID: 4623962412769894852, guid: 40403e8dd1d97824e808cbff6cf325c8, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4623962412769894852, guid: 40403e8dd1d97824e808cbff6cf325c8, type: 3}
       propertyPath: m_LocalRotation.z
-      value: 0.7069834
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4623962412769894852, guid: 40403e8dd1d97824e808cbff6cf325c8, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
@@ -113,7 +113,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4623962412769894852, guid: 40403e8dd1d97824e808cbff6cf325c8, type: 3}
       propertyPath: m_LocalEulerAnglesHint.y
-      value: 180
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5866666021909216657, guid: 40403e8dd1d97824e808cbff6cf325c8, type: 3}
       propertyPath: m_Controller
@@ -213,7 +213,7 @@ Rigidbody:
   m_GameObject: {fileID: 5982235873408065698}
   serializedVersion: 4
   m_Mass: 1
-  m_Drag: 3
+  m_Drag: 0.25
   m_AngularDrag: 0.05
   m_CenterOfMass: {x: 0, y: 0, z: 0}
   m_InertiaTensor: {x: 1, y: 1, z: 1}

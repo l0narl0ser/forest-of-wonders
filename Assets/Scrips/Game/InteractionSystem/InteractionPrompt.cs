@@ -1,8 +1,7 @@
-﻿using System;
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.UI;
 
-public class InteractionPrompt: MonoBehaviour
+public class InteractionPrompt : MonoBehaviour
 {
     [SerializeField] private Button _button;
 
@@ -13,8 +12,8 @@ public class InteractionPrompt: MonoBehaviour
 
     private void OnMouseButtonDown()
     {
-            InputEvent.OnPlayerInteract?.Invoke();
-            gameObject.SetActive(false);
+        InputEvent.OnPlayerInteract?.Invoke();
+        gameObject.SetActive(false);
     }
 
     private void OnDestroy()

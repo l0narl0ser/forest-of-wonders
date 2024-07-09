@@ -28,6 +28,7 @@ public class EnemyController: MonoBehaviour
     }
     private void DestroyEnemy()
     {
+        EnemyEvent.OnEnemyDead?.Invoke();
         Destroy(gameObject);
     }
 }

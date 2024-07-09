@@ -6,6 +6,7 @@ using UnityEngine.SceneManagement;
 
 public class SceneLoader : MonoBehaviour
 {
+
     public async void LoadScene(AssetReference scene)
     {
         AsyncOperationHandle<SceneInstance> handle =
