@@ -9,10 +9,10 @@ public class InteractableObject: MonoBehaviour, IInteractable
         _interactionPromptUI.SetActive(false);
     }
 
-    public bool Interact(Interactor interactor)
+    public void Interact(Interactor interactor)
     {
         Destroy(gameObject);
-        return true;
+        EnemyEvent.OnEnemySpawn?.Invoke(gameObject.transform);
     }
 
     public void ShowInteractionPrompt(bool show)
