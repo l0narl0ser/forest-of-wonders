@@ -6,15 +6,13 @@ public class CameraController : MonoBehaviour
     [SerializeField] private PlayerController _playerController;
     private Vector3 _targetPoint = Vector3.zero;
     private float _moveSpeed = 2f;
-    private float _lookAheadDistance = 3f;
+    private float _lookAheadDistance = 2f;
     private float _lookAheadSpeed = 2f;
     private float _lookOffset;
-    private float _cameraCoordZ = -20;
-    private float _cameraCoordY = 0;
     private void Start()
     {
-        _targetPoint = new Vector3(_playerController.transform.position.x, _cameraCoordY,
-           _cameraCoordZ);
+        _targetPoint = new Vector3(_playerController.transform.position.x, transform.position.y,
+            transform.position.z);
     }
 
     private void LateUpdate()

@@ -49,7 +49,11 @@ public class PlayerController : MonoBehaviour
         var currentState = _stateMachine.currentState.GetType();
         return currentState != typeof(StandingState) && currentState != typeof(JumpingState);
     }
-
+    public bool CanAttack()
+    {
+        var currentState = _stateMachine.currentState.GetType();
+        return currentState == typeof(AttackingState);
+    }
     private void OnPlayerMoved()
     {
         _stateMachine.ChangeState(new WalkingState(this, _animator));
