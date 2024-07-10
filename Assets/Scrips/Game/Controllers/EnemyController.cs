@@ -6,6 +6,8 @@ public class EnemyController: MonoBehaviour
    
     [SerializeField] private float _health = 100f;
     [SerializeField] private Slider _healthbar;
+    [SerializeField] private ParticleSystem _particleSystem;
+    [SerializeField] private GameObject _enemy;
     private bool _alive = true;
     
     private void Start()
@@ -26,8 +28,11 @@ public class EnemyController: MonoBehaviour
     }
     private void DestroyEnemy()
     {
+        _enemy.SetActive(false);
+        _particleSystem.Play();
+        float particleDuration = _particleSystem.main.startLifetime.constantMax;
+        Destroy(gameObject, particleDuration);
         EnemyEvent.OnEnemyDead?.Invoke();
-        Destroy(gameObject);
     }
 }
 
