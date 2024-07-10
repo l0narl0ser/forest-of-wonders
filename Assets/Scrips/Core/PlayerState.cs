@@ -85,7 +85,6 @@ public class JumpingState : PlayerState
     public override void EnterState()
     {
         _animator.SetBool("isJumping",true);
-        Debug.LogWarning($"{_animator.GetBool("isJumping")}");
         _player.Jump();
     }
 

@@ -2,18 +2,19 @@
 
 public class PlayerController : MonoBehaviour
 {
-    [SerializeField] private Rigidbody _rigidBody;
     [SerializeField] private Animator _animator;
     [SerializeField] private Interactor _interactor;
-
-    private float _direction = 0f;
-    private float _sprintSpeed = 4f;
-    private float _walkSpeed = 2f;
-    private float _jumpHeight = 5f;
+    [SerializeField] private CharacterController _character;
+    private float _sprintSpeed = 2f;
+    private float _walkSpeed = 1f;
+    private float _jumpHeight = 1f;
+    private float _verticalVelocity;
+    private float _groundedTimer;
+    private float _gravityValue = 9.81f;
     private StateMachine _stateMachine;
     public float sprintSpeed => _sprintSpeed;
     public float walkSpeed => _walkSpeed;
-    public Rigidbody rigidBody => _rigidBody;
+
 
     private void Awake()
     {
@@ -34,11 +35,7 @@ public class PlayerController : MonoBehaviour
 
     private void OnPlayerStopped()
     {
-        if (!CanChangeState())
-        {
-            return;
-        }
-
+        if (!CanChangeState()) return;
         _stateMachine.ChangeState(new StandingState(this, _animator));
     }
 
@@ -82,7 +79,14 @@ public class PlayerController : MonoBehaviour
 
     public void Jump()
     {
-        if (IsGrounded()) _rigidBody.velocity = new Vector3(_rigidBody.velocity.x, _jumpHeight);
+        if (IsGrounded())
+        {
+            if (_groundedTimer > 0)
+            {
+                _groundedTimer = 0;
+                _verticalVelocity += Mathf.Sqrt(_jumpHeight * 2 * _gravityValue);
+            }
+        }
     }
 
     public bool IsGrounded()
@@ -93,23 +97,19 @@ public class PlayerController : MonoBehaviour
 
     public void Move(float speed)
     {
-        _direction = Input.GetAxisRaw("Horizontal");
-        Turn(_direction);
-        _rigidBody.velocity = new Vector3(_direction * speed, _rigidBody.velocity.y, 0);
+        bool groundedPlayer = _character.isGrounded;
+        if (groundedPlayer) _groundedTimer = 0.2f;
+        if (_groundedTimer > 0) _groundedTimer -= Time.deltaTime;
+        if (groundedPlayer && _verticalVelocity < 0) _verticalVelocity = 0f;
+        _verticalVelocity -= _gravityValue * Time.deltaTime;
+        Vector3 move = new Vector3(Input.GetAxis("Horizontal"), 0, 0);
+        move *= speed;
+        
+        if (move.magnitude > 0.05f) gameObject.transform.forward = move;
+        
+        move.y = _verticalVelocity;
+        _character.Move(move * Time.deltaTime);
     }
-
-    private void Turn(float direction)
-    {
-        if (direction > 0)
-        {
-            transform.rotation = Quaternion.Euler(0, 90, 0);
-        }
-        else if (direction < 0)
-        {
-            transform.rotation = Quaternion.Euler(0, -90, 0);
-        }
-    }
-
 
     private void OnDestroy()
     {
