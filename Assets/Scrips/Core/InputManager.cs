@@ -16,13 +16,14 @@ public class InputManager : MonoBehaviour
         {
             InputEvent.OnPlayerStop?.Invoke();
         }
-
-        if (Input.GetKey(KeyCode.Space)) InputEvent.OnPlayerJump?.Invoke();
-        if (Input.GetKey(KeyCode.E)) InputEvent.OnPlayerAttack?.Invoke();
         if (Input.GetKey(KeyCode.A) && Input.GetKey(KeyCode.LeftShift) ||
             Input.GetKey(KeyCode.D) && Input.GetKey(KeyCode.LeftShift))
         {
             InputEvent.OnPlayerSprint?.Invoke();
         }
+
+        if (Input.GetKey(KeyCode.Space)) InputEvent.OnPlayerJump?.Invoke();
+        if (Input.GetKey(KeyCode.E)) InputEvent.OnPlayerAttack?.Invoke();
+       
     }
 }

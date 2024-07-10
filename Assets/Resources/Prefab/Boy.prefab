@@ -229,7 +229,7 @@ Rigidbody:
   m_UseGravity: 1
   m_IsKinematic: 0
   m_Interpolate: 0
-  m_Constraints: 88
+  m_Constraints: 120
   m_CollisionDetection: 0
 --- !u!136 &12829647414459818
 CapsuleCollider:
@@ -286,7 +286,6 @@ MonoBehaviour:
   _interactableMask:
     serializedVersion: 2
     m_Bits: 64
-  _numFound: 0
 --- !u!4 &6363299818477353496 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: 40403e8dd1d97824e808cbff6cf325c8, type: 3}
