@@ -147,6 +147,4 @@ public class PlayerController : MonoBehaviour
         InputEvent.OnPlayerSprint -= OnPlayerSprinted;
         InputEvent.OnPlayerStop -= OnPlayerStopped;
     }
-
-
 }
