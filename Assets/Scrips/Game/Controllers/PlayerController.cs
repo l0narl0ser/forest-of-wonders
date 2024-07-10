@@ -35,14 +35,14 @@ public class PlayerController : MonoBehaviour
 
     private void OnPlayerStopped()
     {
-        if (!CanChangeState()) return;
+        if (!CanChangeStateToStanding()) return;
         _stateMachine.ChangeState(new StandingState(this, _animator));
     }
 
-    private bool CanChangeState()
+    private bool CanChangeStateToStanding()
     {
         var currentState = _stateMachine.currentState.GetType();
-        return currentState != typeof(StandingState) && currentState != typeof(JumpingState);
+        return currentState != typeof(StandingState) && IsGrounded();
     }
 
     public bool CanAttack()
@@ -76,17 +76,60 @@ public class PlayerController : MonoBehaviour
         _stateMachine.ChangeState(new AttackingState(this, _animator));
     }
 
+    public void Move(float speed)
+    {
+        UpdateGroundedStatus();
+        ApplyGravity();
+
+        Vector3 move = new Vector3(Input.GetAxis("Horizontal"), 0, 0) * speed;
+
+        if (move.magnitude > 0.05f)
+        {
+            gameObject.transform.forward = move;
+        }
+
+        move.y = _verticalVelocity;
+        _character.Move(move * Time.deltaTime);
+    }
 
     public void Jump()
     {
-        if (IsGrounded())
+        UpdateGroundedStatus();
+        ApplyGravity();
+
+        if (_groundedTimer > 0)
         {
-            if (_groundedTimer > 0)
-            {
-                _groundedTimer = 0;
-                _verticalVelocity += Mathf.Sqrt(_jumpHeight * 2 * _gravityValue);
-            }
+            _groundedTimer = 0;
+            _verticalVelocity += Mathf.Sqrt(_jumpHeight * 2 * _gravityValue);
         }
+
+        Vector3 move = new Vector3(Input.GetAxis("Horizontal"), 0, 0) * _walkSpeed;
+        move.y = _verticalVelocity;
+        _character.Move(move * Time.deltaTime);
+    }
+
+    private void UpdateGroundedStatus()
+    {
+        bool groundedPlayer = _character.isGrounded;
+        if (groundedPlayer)
+        {
+            _groundedTimer = 0.2f;
+        }
+
+        if (_groundedTimer > 0)
+        {
+            _groundedTimer -= Time.deltaTime;
+        }
+    }
+
+    private void ApplyGravity()
+    {
+        if (_character.isGrounded && _verticalVelocity < 0)
+        {
+            _verticalVelocity = 0f;
+        }
+
+        _verticalVelocity -= _gravityValue * Time.deltaTime;
     }
 
     public bool IsGrounded()
@@ -94,22 +137,6 @@ public class PlayerController : MonoBehaviour
         return Physics.Raycast(transform.position, Vector3.down, .1f);
     }
 
-
-    public void Move(float speed)
-    {
-        bool groundedPlayer = _character.isGrounded;
-        if (groundedPlayer) _groundedTimer = 0.2f;
-        if (_groundedTimer > 0) _groundedTimer -= Time.deltaTime;
-        if (groundedPlayer && _verticalVelocity < 0) _verticalVelocity = 0f;
-        _verticalVelocity -= _gravityValue * Time.deltaTime;
-        Vector3 move = new Vector3(Input.GetAxis("Horizontal"), 0, 0);
-        move *= speed;
-        
-        if (move.magnitude > 0.05f) gameObject.transform.forward = move;
-        
-        move.y = _verticalVelocity;
-        _character.Move(move * Time.deltaTime);
-    }
 
     private void OnDestroy()
     {
@@ -120,4 +147,6 @@ public class PlayerController : MonoBehaviour
         InputEvent.OnPlayerSprint -= OnPlayerSprinted;
         InputEvent.OnPlayerStop -= OnPlayerStopped;
     }
+
+
 }

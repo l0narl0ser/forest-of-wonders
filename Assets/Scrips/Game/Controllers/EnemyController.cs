@@ -15,10 +15,8 @@ public class EnemyController: MonoBehaviour
     
     public void TakeDamage(float damage)
     {
-        if (!_alive)
-        {
-            return;
-        }
+        if (!_alive) return;
+        
         _healthbar.value -= damage;
         if (_healthbar.value <= 0)
         {
