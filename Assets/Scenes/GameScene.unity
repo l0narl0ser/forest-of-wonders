@@ -1091,7 +1091,7 @@ Transform:
   m_GameObject: {fileID: 890510717}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0.7071068, w: 0.7071068}
-  m_LocalPosition: {x: -21.2, y: 1.12, z: -1.03}
+  m_LocalPosition: {x: -20.92, y: 1.12, z: -0.96}
   m_LocalScale: {x: 0.53, y: 1, z: 0.2}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -1912,7 +1912,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 'Attack: space'
+  m_text: 'Attack: E'
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -3527,7 +3527,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6363299818477353496, guid: 0f85c0f6d4771cd469a77969b0889b68, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -20.21
+      value: -20.07
       objectReference: {fileID: 0}
     - target: {fileID: 6363299818477353496, guid: 0f85c0f6d4771cd469a77969b0889b68, type: 3}
       propertyPath: m_LocalPosition.y
@@ -3535,7 +3535,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6363299818477353496, guid: 0f85c0f6d4771cd469a77969b0889b68, type: 3}
       propertyPath: m_LocalPosition.z
-      value: -0.71204007
+      value: -1.01
       objectReference: {fileID: 0}
     - target: {fileID: 6363299818477353496, guid: 0f85c0f6d4771cd469a77969b0889b68, type: 3}
       propertyPath: m_LocalRotation.w

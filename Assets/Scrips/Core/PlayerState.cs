@@ -17,13 +17,15 @@ public abstract class PlayerState
 }
 public class StandingState : PlayerState
 {
+    
+
     public StandingState(PlayerController player, Animator animator) : base(player, animator) { }
 
     public override void EnterState()
     {
-        _animator.SetBool("isWalking", false);
-        _animator.SetBool("isRunning", false);
-        _animator.SetBool("isJumping",false);
+        _animator.SetBool(AnimatorParams.isWalking, false);
+        _animator.SetBool(AnimatorParams.isRunning, false);
+        _animator.SetBool(AnimatorParams.isJumping,false);
     }
 
     public override void UpdateState()
@@ -40,9 +42,8 @@ public class WalkingState : PlayerState
 
     public override void EnterState()
     {
-        if (!_player.IsGrounded()) return;
         _player.Move(_player.walkSpeed);
-        _animator.SetBool("isWalking", true);
+        _animator.SetBool(AnimatorParams.isWalking, true);
     }
 
     public override void UpdateState()
@@ -52,7 +53,7 @@ public class WalkingState : PlayerState
 
     public override void ExitState()
     {
-        _animator.SetBool("isWalking", false);
+        _animator.SetBool(AnimatorParams.isWalking, false);
     }
 }
 
@@ -62,9 +63,8 @@ public class RunningState : PlayerState
 
     public override void EnterState()
     {
-        if (!_player.IsGrounded()) return;
         _player.Move(_player.sprintSpeed);
-        _animator.SetBool("isRunning", true);
+        _animator.SetBool(AnimatorParams.isRunning, true);
     }
 
     public override void UpdateState()
@@ -74,7 +74,7 @@ public class RunningState : PlayerState
 
     public override void ExitState()
     {
-        _animator.SetBool("isRunning", false);
+        _animator.SetBool(AnimatorParams.isRunning, false);
     }
 }
 
@@ -84,40 +84,42 @@ public class JumpingState : PlayerState
 
     public override void EnterState()
     {
-        _animator.SetBool("isJumping",true);
-        Debug.LogWarning($"{_animator.GetBool("isJumping")}");
+        _animator.SetBool(AnimatorParams.isJumping,true);
         _player.Jump();
     }
 
     public override void UpdateState()
     {
         if (_player.IsGrounded()) return;
-        _animator.SetBool("isJumping",true);
+        _animator.SetBool(AnimatorParams.isJumping,true);
+        _player.Jump();
+
     }
 
     public override void ExitState()
     {
-        _animator.SetBool("isJumping",false);
+       _animator.SetBool(AnimatorParams.isJumping,false);
     }
 }
 
 public class AttackingState : PlayerState
 {
+    
     public AttackingState(PlayerController player, Animator animator) : base(player, animator) { }
 
     public override void EnterState()
     {
-        _animator.SetBool("isAttacking", true);
+        _animator.SetBool(AnimatorParams.isAttacking, true);
     }
 
     public override void UpdateState()
     {
-        _animator.SetBool("isAttacking", true);
+        _animator.SetBool(AnimatorParams.isAttacking, true);
     }
 
     public override void ExitState()
     {
-        _animator.SetBool("isAttacking",false);
+        _animator.SetBool(AnimatorParams.isAttacking,false);
     }
 }
 

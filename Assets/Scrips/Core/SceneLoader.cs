@@ -10,7 +10,7 @@ public class SceneLoader : MonoBehaviour
     public async void LoadScene(AssetReference scene)
     {
         AsyncOperationHandle<SceneInstance> handle =
-            Addressables.LoadSceneAsync(scene, LoadSceneMode.Single);
+            Addressables.LoadSceneAsync(scene);
         await handle.Task;
         
     }
